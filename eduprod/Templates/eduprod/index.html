@@ -1,5 +1,639 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
-<div id="content" data-questions='{{ questions_json|safe }}'></div>
-<button id="revealBtn">Reveal Answer</button> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer the Question</title>
+    <style>
+        .continent-select, .difficulty-select {
+            width: 200px; /* Adjust the width as needed */
+        }
+
+        .question {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .answer-box {
+            width: 70%; /* Adjust the width as needed */
+            height: 50px; /* Adjust the height as needed */
+            padding: 5px;
+            box-sizing: border-box; /* Ensure padding and border are included in the total width and height */
+        }
+    </style>
+</head>
+<body>
+    <select id="continentSelect" class="continent-select" onchange="loadQuestions()">
+        <option value="">Select a Continent</option>
+        <option value="Africa">Africa</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="North America">North America</option>
+        <option value="South America">South America</option>
+        <option value="Oceania">Oceania</option>
+    </select>
+
+    <select id="difficultySelect" class="difficulty-select" onchange="loadQuestions()">
+        <option value="">Select Difficulty</option>
+        <option value="easy">Easy</option>
+        <option value="hard">Hard</option>
+    </select>
+
+    <div id="questionContainer"></div>
+
+    <button id="homeButton" style="display: none;" onclick="goToHomePage()">Go to Home Page</button>
+
+    <script>
+      var questions = {
+    "Africa": {
+        "easy": {
+            "What country is this?": [
+                { 
+                    question: "This country has big pyramids and a long river called the Nile.",
+                    answer: "Egypt",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1280px-Flag_of_Egypt.svg.png",
+                    hint: "This country has big pyramids and a long river called the Nile."
+                },
+                { 
+                    question: "Where lions and elephants roam, and there's a very tall mountain called Kilimanjaro.",
+                    answer: "Tanzania",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Tanzania.svg/1280px-Flag_of_Tanzania.svg.png",
+                    hint: "Where lions and elephants roam, and there's a very tall mountain called Kilimanjaro."
+                },
+                { 
+                    question: "Known for colorful markets and tasty spices, with big, beautiful mosques.",
+                    answer: "Morocco",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/1280px-Flag_of_Morocco.svg.png",
+                    hint: "Known for colorful markets and tasty spices, with big, beautiful mosques."
+                },
+                { 
+                    question: "Where people dance to music called Afrobeat and love to play football.",
+                    answer: "Nigeria",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flag_of_Nigeria.svg/1280px-Flag_of_Nigeria.svg.png",
+                    hint: "Where people dance to music called Afrobeat and love to play football."
+                },
+                { 
+                    question: "A place where diamonds are found and there's a big, watery place called the Okavango Delta.",
+                    answer: "Botswana",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_Botswana.svg/1280px-Flag_of_Botswana.svg.png",
+                    hint: "A place where diamonds are found and there's a big, watery place called the Okavango Delta."
+                },
+                { 
+                    question: "They grow lots of coffee here, and the capital city is Addis Ababa.",
+                    answer: "Ethiopia",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Flag_of_Ethiopia.svg/1280px-Flag_of_Ethiopia.svg.png",
+                    hint: "They grow lots of coffee here, and the capital city is Addis Ababa."
+                },
+                { 
+                    question: "You can see lots of animals like lions and zebras in the Serengeti, and there are tall, colorful tribes called Maasai.",
+                    answer: "Kenya",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1280px-Flag_of_Kenya.svg.png",
+                    hint: "You can see lots of animals like lions and zebras in the Serengeti, and there are tall, colorful tribes called Maasai."
+                },
+                { 
+                    question: "Known for its beautiful coastline along the Indian Ocean and has a capital city called Mogadishu.",
+                    answer: "Somalia",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Flag_of_Somalia.svg/1280px-Flag_of_Somalia.svg.png",
+                     hint: "Known for its beautiful coastline along the Indian Ocean and has a capital city called Mogadishu."
+                },
+                { 
+                    question: "Known for its sandy beaches and old buildings from long ago.",
+                    answer: "Tunisia",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Tunisia.svg/1280px-Flag_of_Tunisia.svg.png",
+                    hint: "Known for its sandy beaches and old buildings from long ago."
+                },
+                { 
+                    question: "Famous for shiny gold and a busy city named Accra.",
+                    answer: "Ghana",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Ghana.svg/1280px-Flag_of_Ghana.svg.png",
+                    hint: "Famous for shiny gold and a busy city named Accra."
+                },
+                { 
+                    question: "A place where you can find gorillas, and it's named after a big bird.",
+                    answer: "Uganda",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/1280px-Flag_of_Uganda.svg.png",
+                    hint: "A place where you can find gorillas, and it's named after a big bird."
+                },
+                { 
+                    question: "Known for a big waterfall named Victoria Falls and lots of animals in big parks.",
+                    answer: "Zambia",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Flag_of_Zambia.svg/1280px-Flag_of_Zambia.svg.png",
+                    hint: "Known for a big waterfall named Victoria Falls and lots of animals in big parks."
+                },
+                { 
+                    question: "A country with lots of different places to see, like big cities and sandy deserts.",
+                    answer: "Mali",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Mali.svg/1280px-Flag_of_Mali.svg.png",
+                    hint: "A country with lots of different places to see, like big cities and sandy deserts."
+                },
+                { 
+                    question: "This country has a city where they filmed a famous movie called Casablanca, and there are big mountains here too.",
+                    answer: "Morocco",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Flag_of_Morocco.svg/1280px-Flag_of_Morocco.svg.png",
+                    hint: "This country has a city where they filmed a famous movie called Casablanca, and there are big mountains here too."
+                },
+                { 
+                    question: "A place where a long valley with lots of animals and a big lake can be found.",
+                    answer: "Kenya",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Kenya.svg/1280px-Flag_of_Kenya.svg.png",
+                    hint: "A place where a long valley with lots of animals and a big lake can be found."
+                },
+                { 
+                    question: "Known for a city called Benin and people who believe in magic called voodoo.",
+                    answer: "Benin",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Flag_of_Benin.svg/1280px-Flag_of_Benin.svg.png",
+                    hint: "Known for a city called Benin and people who believe in magic called voodoo."
+                },
+                { 
+                    question: "A place with a capital city called Dakar and a special island for remembering history.",
+                    answer: "Senegal",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/1280px-Flag_of_Senegal.svg.png",
+                    hint: "A place with a capital city called Dakar and a special island for remembering history."
+                },
+                { 
+                    question: "A place where you can see big, strong gorillas in the mountains.",
+                    answer: "Democratic Republic of the Congo",
+                    answer: "Drc",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg/1280px-Flag_of_the_Democratic_Republic_of_the_Congo.svg.png",
+                    hint: "A place where you can see big, strong gorillas in the mountains."
+                },
+                { 
+                    question: "A place with a special island where a famous leader was kept, and a big, flat-topped mountain.",
+                    answer: "South Africa",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Flag_of_South_Africa.svg/1280px-Flag_of_South_Africa.svg.png",
+                    hint: "A place with a special island where a famous leader was kept, and a big, flat-topped mountain."
+                },
+                { 
+                    question: "Known for being really big and having lots of sand.",
+                    answer: "Algeria",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Algeria.svg/1280px-Flag_of_Algeria.svg.png",
+                    hint: "Known for being really big and having lots of sand."
+                },
+                { 
+                    question: "A country with strange-looking trees and lots of animals, but no lions.",
+                    answer: "Madagascar",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Madagascar.svg/1280px-Flag_of_Madagascar.svg.png",
+                    hint: "A country with strange-looking trees and lots of animals, but no lions."
+                },
+            ],
+            // Add more questions for other countries...
+        },
+        "hard": {
+            // Add hard questions for Africa...
+        },
+    },
+    "Asia": {
+    "easy": {
+        "What country is this?": [
+            { 
+                question: "Known for its Great Wall, delicious cuisine like Peking duck, and the Forbidden City in its capital city, Beijing.",
+                answer: "China",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1280px-Flag_of_the_People%27s_Republic_of_China.svg.png",
+                hint: "Known for its Great Wall, delicious cuisine like Peking duck, and the Forbidden City in its capital city, Beijing."
+            },
+            { 
+                question: "Famous for its cherry blossoms, high-speed bullet trains, and sushi.",
+                answer: "Japan",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
+                hint: "Famous for its cherry blossoms, high-speed bullet trains, and sushi."
+            },
+            { 
+                question: "Known for its diverse culture, beautiful beaches like Bali, and rich biodiversity.",
+                answer: "Indonesia",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
+                hint: "Known for its diverse culture, beautiful beaches like Bali, and rich biodiversity."
+            },
+            { 
+                question: "Famous for its ancient Indus Valley Civilization, spicy cuisine, and stunning landscapes like the Karakoram Range.",
+                answer: "Pakistan",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+                hint: "Famous for its ancient Indus Valley Civilization, spicy cuisine, and stunning landscapes like the Karakoram Range."
+            },
+            { 
+                question: "Known for its lush green landscapes, vibrant culture, and the largest mangrove forest in the world, the Sundarbans.",
+                answer: "Bangladesh",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg",
+                hint: "Known for its lush green landscapes, vibrant culture, and the largest mangrove forest in the world, the Sundarbans."
+            },
+            { 
+                question: "Famous for its stunning beaches, vibrant festivals like Ati-Atihan, and delicious cuisine like adobo and balut.",
+                answer: "Philippines",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg",
+                hint: "Famous for its stunning beaches, vibrant festivals like Ati-Atihan, and delicious cuisine like adobo and balut."
+            },
+            { 
+                question: "Known for its breathtaking natural landscapes, delicious cuisine like pho, and rich history.",
+                answer: "Vietnam",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg",
+                hint: "Known for its breathtaking natural landscapes, delicious cuisine like pho, and rich history."
+            },
+            { 
+                question: "Famous for its unique blend of Eastern and Western cultures, historical sites like Hagia Sophia, and delicious cuisine like kebabs and baklava.",
+                answer: "Turkey",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg",
+                hint: "Famous for its unique blend of Eastern and Western cultures, historical sites like Hagia Sophia, and delicious cuisine like kebabs and baklava."
+            },
+            { 
+                question: "Known for its rich history, ancient ruins like Persepolis, and delicious cuisine like kebabs and rice dishes.",
+                answer: "Iran",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg",
+                hint: "Known for its rich history, ancient ruins like Persepolis, and delicious cuisine like kebabs and rice dishes."
+            },
+            { 
+                question: "Famous for its vibrant street life, beautiful temples like Wat Pho, and delicious cuisine like pad thai and green curry.",
+                answer: "Thailand",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg",
+                hint: "Famous for its vibrant street life, beautiful temples like Wat Pho, and delicious cuisine like pad thai and green curry."
+            },
+            { 
+                question: "Known for its ancient pagodas, rich cultural heritage, and stunning landscapes like Bagan.",
+                answer: "Myanmar (Burma)",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg",
+                hint: "Known for its ancient pagodas, rich cultural heritage, and stunning landscapes like Bagan."
+            },
+            { 
+                question: "Famous for its K-pop music, technological innovation, and delicious cuisine like kimchi and bulgogi.",
+                answer: "South Korea",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg",
+                hint: "Famous for its K-pop music, technological innovation, and delicious cuisine like kimchi and bulgogi."
+            },
+            { 
+                question: "Known for its ancient Mesopotamian history, rich cultural heritage, and delicious cuisine like kebabs and dolma.",
+                answer: "Iraq",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg",
+                hint: "Known for its ancient Mesopotamian history, rich cultural heritage, and delicious cuisine like kebabs and dolma."
+            },
+            { 
+                question: "Famous for its rugged mountains, ancient history, and delicious cuisine like kebabs and qabuli pulao.",
+                answer: "Afghanistan",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Afghanistan.svg",
+                hint: "Famous for its rugged mountains, ancient history, and delicious cuisine like kebabs and qabuli pulao."
+            },
+            { 
+                question: "Known for its vast deserts, rich cultural heritage, and the birthplace of Islam.",
+                answer: "Saudi Arabia",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg",
+                hint: "Known for its vast deserts, rich cultural heritage, and the birthplace of Islam."
+            },
+            { 
+                question: "Famous for its Silk Road history, stunning architecture like Registan Square, and delicious cuisine like plov.",
+                answer: "Uzbekistan",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg",
+                hint: "Famous for its Silk Road history, stunning architecture like Registan Square, and delicious cuisine like plov."
+            },
+            { 
+                question: "Known for its modern cities, diverse cultures, and delicious cuisine like nasi lemak and rendang.",
+                answer: "Malaysia",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg",
+                hint: "Known for its modern cities, diverse cultures, and delicious cuisine like nasi lemak and rendang."
+            },
+            { 
+                question: "Famous for its ancient history, rich cultural heritage, and the birthplace of coffee.",
+                answer: "Yemen",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg",
+                hint: "Famous for its ancient history, rich cultural heritage, and the birthplace of coffee."
+            },
+            { 
+                question: "Known for its majestic Himalayan mountains, rich cultural heritage, and the birthplace of Gautama Buddha.",
+                answer: "Nepal",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg",
+                hint: "Known for its majestic Himalayan mountains, rich cultural heritage, and the birthplace of Gautama Buddha."
+            },
+            { 
+                question: "Famous for its vast steppes, nomadic culture, and the former Soviet Union's space launch site, Baikonur Cosmodrome.",
+                answer: "Kazakhstan",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg",
+                hint: "Famous for its vast steppes, nomadic culture, and the former Soviet Union's space launch site, Baikonur Cosmodrome."
+            }
+        ],
+        // Add more questions for other continents...
+    },
+    "hard": {
+        // Add hard questions for Asia...
+    },
+},
+"Europe": {
+    "easy": {
+        "What country is this?": [
+            { 
+                question: "This country is known for its beer, sausages, and famous automobile brands like BMW and Volkswagen.",
+                answer: "Germany",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg",
+                hint: "Known for its beer, sausages, and famous automobile brands like BMW and Volkswagen."
+            },
+            { 
+                question: "Famous for its iconic landmarks like Big Ben, the Tower of London, and the royal family.",
+                answer: "United Kingdom",
+                answer: "Uk",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
+                hint: "Famous for its iconic landmarks like Big Ben, the Tower of London, and the royal family."
+            },
+            { 
+                question: "Known for its romantic city of Paris, the Eiffel Tower, and delicious cuisine like croissants and escargot.",
+                answer: "France",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+                hint: "Known for its romantic city of Paris, the Eiffel Tower, and delicious cuisine like croissants and escargot."
+            },
+            { 
+                question: "Famous for its rich history, art, architecture, and delicious pasta and pizza.",
+                answer: "Italy",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
+                hint: "Famous for its rich history, art, architecture, and delicious pasta and pizza."
+            },
+            { 
+                question: "Known for its vibrant culture, beautiful beaches, and famous landmarks like Sagrada Familia and La Rambla.",
+                answer: "Spain",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg",
+                hint: "Known for its vibrant culture, beautiful beaches, and famous landmarks like Sagrada Familia and La Rambla."
+            },
+            { 
+                question: "This country is known for its vast fertile plains, historical sites, and beautiful Orthodox churches.",
+                answer: "Ukraine",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg",
+                hint: "Known for its vast fertile plains, historical sites, and beautiful Orthodox churches."
+            },
+            { 
+                question: "Famous for its medieval architecture, hearty cuisine, and rich cultural heritage.",
+                answer: "Poland",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg",
+                hint: "Famous for its medieval architecture, hearty cuisine, and rich cultural heritage."
+            },
+            { 
+                question: "Known for its picturesque landscapes, medieval castles, and folklore.",
+                answer: "Romania",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg",
+                hint: "Known for its picturesque landscapes, medieval castles, and folklore."
+            },
+            { 
+                question: "Famous for its picturesque canals, tulip fields, and cycling routes.",
+                answer: "Netherlands",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg",
+                hint: "Famous for its picturesque canals, tulip fields, and cycling routes."
+            },
+            { 
+                question: "Known for its medieval towns, delicious chocolates, and waffles.",
+                answer: "Belgium",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Belgium_%28civil%29.svg",
+                hint: "Known for its medieval towns, delicious chocolates, and waffles."
+            },
+            { 
+                question: "Famous for its ancient history, mythology, and beautiful islands like Santorini and Mykonos.",
+                answer: "Greece",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg",
+                hint: "Famous for its ancient history, mythology, and beautiful islands like Santorini and Mykonos."
+            },
+            { 
+                question: "Known for its stunning coastline, port wine, and historical landmarks like the Tower of Belém.",
+                answer: "Portugal",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
+                hint: "Known for its stunning coastline, port wine, and historical landmarks like the Tower of Belém."
+            },
+            { 
+                question: "Famous for its beautiful architecture, rich history, and delicious beer.",
+                answer: "Czech Republic",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg",
+                hint: "Famous for its beautiful architecture, rich history, and delicious beer."
+            },
+            { 
+                question: "Known for its stunning landscapes, northern lights, and innovative designs.",
+                answer: "Sweden",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg",
+                hint: "Known for its stunning landscapes, northern lights, and innovative designs."
+            },
+            { 
+                question: "Famous for its rich history, thermal baths, and delicious cuisine.",
+                answer: "Hungary",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg",
+                hint: "Famous for its rich history, thermal baths, and delicious cuisine."
+            },
+            { 
+                question: "Known for its beautiful landscapes, dense forests, and historical sites like Mir Castle.",
+                answer: "Belarus",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg",
+                hint: "Known for its beautiful landscapes, dense forests, and historical sites like Mir Castle."
+            },
+            { 
+                question: "Famous for its picturesque Alps, ski resorts, and delicious chocolate.",
+                answer: "Austria",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg",
+                hint: "Famous for its picturesque Alps, ski resorts, and delicious chocolate."
+            },
+            { 
+                question: "Known for its stunning landscapes, alpine villages, and precision watches.",
+                answer: "Switzerland",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg",
+                hint: "Known for its stunning landscapes, alpine villages, and precision watches."
+            },
+            { 
+                question: "Famous for its rich history, beautiful Black Sea coast, and delicious cuisine.",
+                answer: "Bulgaria",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg",
+                hint: "Famous for its rich history, beautiful Black Sea coast, and delicious cuisine."
+            },
+            { 
+                question: "Known for its fairy-tale-like castles, Viking history, and beautiful coastline.",
+                answer: "Denmark",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg",
+                hint: "Known for its fairy-tale-like castles, Viking history, and beautiful coastline."
+            }
+        ],
+        // Add more questions for other continents...
+    },
+    "hard": {
+        // Add hard questions for Europe...
+    },
+},
+    "North America": {
+        "easy": {
+            "What country is this?": [
+                {
+                    question: "Known for its Statue of Liberty, Hollywood, and the Grand Canyon.",
+                    answer: "United States",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+                    hint: "Famous for the Statue of Liberty and Hollywood."
+                },
+                {
+                    question: "Known for its maple syrup, hockey, and beautiful natural landscapes.",
+                    answer: "Canada",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg",
+                    hint: "Famous for maple syrup and hockey."
+                },
+                {
+                    question: "Known for its ancient civilizations, vibrant culture, and delicious cuisine.",
+                    answer: "Mexico",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg",
+                    hint: "Famous for ancient civilizations and delicious cuisine."
+                },
+                {
+                    question: "Known for its ancient Mayan ruins, colorful culture, and volcanic landscapes.",
+                    answer: "Guatemala",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg",
+                    hint: "Famous for ancient Mayan ruins."
+                },
+                {
+                    question: "Known for its cigars, classic cars, and vibrant music.",
+                    answer: "Cuba",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg",
+                    hint: "Famous for cigars and classic cars."
+                },
+                {
+                    question: "Known for its vibrant culture, stunning beaches, and lively music.",
+                    answer: "Haiti",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg",
+                    hint: "Famous for vibrant culture and stunning beaches."
+                },
+                {
+                    question: "Known for its stunning beaches, historic architecture, and baseball players.",
+                    answer: "Dominican Republic",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg",
+                    hint: "Famous for stunning beaches and historic architecture."
+                },
+                {
+                    question: "Known for its tropical climate, Mayan ruins, and beautiful Caribbean coastlines.",
+                    answer: "Honduras",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg",
+                    hint: "Famous for tropical climate and Mayan ruins."
+                },
+                {
+                    question: "Known for its beautiful beaches, surfing spots, and active volcanoes.",
+                    answer: "El Salvador",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg",
+                    hint: "Famous for beautiful beaches and surfing spots."
+                },
+                {
+                    question: "Known for its diverse wildlife, scenic landscapes, and vibrant culture.",
+                    answer: "Nicaragua",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg",
+                    hint: "Famous for diverse wildlife and scenic landscapes."
+                },
+                {
+                    question: "Known for its lush rainforests, eco-tourism, and stunning beaches.",
+                    answer: "Costa Rica",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg",
+                    hint: "Famous for lush rainforests and eco-tourism."
+                },
+                {
+                    question: "Known for its famous canal, lush rainforests, and diverse wildlife.",
+                    answer: "Panama",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg",
+                    hint: "Famous for famous canal and lush rainforests."
+                },
+                {
+                    question: "Known for its ancient Maya ruins, diverse wildlife, and colorful coral reefs.",
+                    answer: "Belize",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg",
+                    hint: "Famous for ancient Maya ruins and colorful coral reefs."
+                },
+                {
+                    question: "Known for its beautiful beaches, reggae music, and vibrant culture.",
+                    answer: "Jamaica",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg",
+                    hint: "Famous for beautiful beaches and reggae music."
+                },
+                {
+                    question: "Known for its vibrant Carnival celebrations, steelpan music, and beautiful beaches.",
+                    answer: "Trinidad and Tobago",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg",
+                    hint: "Famous for vibrant Carnival celebrations and steelpan music."
+                },
+                {
+                    question: "Known for its stunning beaches, crystal-clear waters, and vibrant culture.",
+                    answer: "Bahamas",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg",
+                    hint: "Famous for stunning beaches and crystal-clear waters."
+                },
+                {
+                    question: "Known for its beautiful beaches, friendly locals, and vibrant nightlife.",
+                    answer: "Barbados",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg",
+                    hint: "Famous for beautiful beaches and vibrant nightlife."
+                },
+                {
+                    question: "Known for its lush rainforests, scenic landscapes, and friendly locals.",
+                    answer: "Saint Lucia",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg",
+                    hint: "Famous for lush rainforests and scenic landscapes."
+                },
+                {
+                    question: "Known for its stunning beaches, clear blue waters, and luxury resorts.",
+                    answer: "Antigua and Barbuda",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg",
+                    hint: "Famous for stunning beaches and luxury resorts."
+                }
+            ],
+            // Add more questions for other continents...
+        },
+        "hard": {
+            // Add hard questions for North America...
+        },
+    },
+    // Define questions for other continents...
+};
+        function loadQuestions() {
+            var continentSelect = document.getElementById("continentSelect");
+            var difficultySelect = document.getElementById("difficultySelect");
+            var selectedContinent = continentSelect.value;
+            var selectedDifficulty = difficultySelect.value;
+
+            var questionContainer = document.getElementById("questionContainer");
+            questionContainer.innerHTML = ""; // Clear previous questions
+
+            var homeButton = document.getElementById("homeButton");
+            homeButton.style.display = "none"; // Hide the home button initially
+
+            if (selectedContinent && selectedDifficulty) {
+                var questionsForContinent = questions[selectedContinent];
+                if (questionsForContinent) {
+                    var questionsForDifficulty = questionsForContinent[selectedDifficulty];
+                    if (questionsForDifficulty) {
+                        for (var country in questionsForDifficulty) {
+                            var countryQuestions = questionsForDifficulty[country];
+                            if (countryQuestions && countryQuestions.length > 0) {
+                                countryQuestions.forEach(function(question, index) {
+                                    var questionElement = document.createElement("div");
+                                    questionElement.classList.add("question");
+                                    questionElement.innerHTML = `
+                                        <h2>${country} - Question ${index + 1}</h2>
+                                        <p>${question.question}</p>
+                                        <input type="text" id="answerBox${index}" class="answer-box" placeholder="Type your answer here">
+                                        <button onclick="checkAnswer('${question.answer}', ${index})">Submit Answer</button>
+                                        <span id="result${index}"></span>
+                                        <img src="${question.imageUrl}" alt="Image for the question">
+                                    `;
+                                    questionContainer.appendChild(questionElement);
+                                });
+                            }
+                        }
+                        // Show the home button after finishing questions for the continent
+                        homeButton.style.display = "block";
+                    } else {
+                        questionContainer.textContent = "No questions available for this difficulty level.";
+                    }
+                } else {
+                    questionContainer.textContent = "No questions available for this continent.";
+                }
+            }
+        }
+
+        function checkAnswer(correctAnswer, questionIndex) {
+            var answerBox = document.getElementById("answerBox" + questionIndex);
+            var userAnswer = answerBox.value;
+            var resultSpan = document.getElementById("result" + questionIndex);
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultSpan.textContent = "✔️ Correct!";
+            } else {
+                resultSpan.textContent = "❌ Incorrect. Please try again.";
+            }
+            answerBox.value = ""; // Clear the answer box after checking
+        }
+
+        function goToHomePage() {
+            window.location.href = "http://127.0.0.1:8000/users/"; // Replace with the URL of your home page
+        }
+    </script>
+</body>
+</html>
 {% endblock %}

@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.shortcuts import render
+from .models import Country
 
 def index(request):
     if not request.user.is_authenticated:
@@ -27,3 +29,7 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out.")
     return redirect(reverse('users:login'))
+
+def countries_by_continent(request, continent_name):
+    countries = Country.objects.filter(continent=continent_name)
+    return render(request, 'countries.html', {'continent': continent_name, 'countries': countries})

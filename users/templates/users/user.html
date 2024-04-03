@@ -1,6 +1,12 @@
 {% extends "users/layout.html" %}
 {% block body %}
-    <h1>Welcome, {{ request.user.first_name }}</h1>
+    <h1 
+    <span style="color: blue;">Flags</span>
+    <span style="color: green;">Of</span>
+    <span style="color: green;">The</span>
+    <span style="color: blue;">World</span>
+    </h1>
     <p>Username: {{ request.user.username }}</p>
-    <a href="{% url 'eduprod:index' %}">Take the Quiz</a>
+    <a href="{% url 'eduprod:index' %}">Begin Guess
+    </a>
 {% endblock %}
