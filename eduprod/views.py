@@ -4,6 +4,9 @@ from .models import Question
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import ContinentQuestions
+from django.shortcuts import render
+from .models import Question
 
 @login_required
 def index(request):
@@ -28,3 +31,8 @@ def submit_answer(request):
         return HttpResponse(f'Your answer: {user_answer}')
     else:
         return HttpResponse('Method not allowed')
+
+
+def display_questions(request):
+    questions = Question.objects.all()
+    return render(request, 'africa/questions.html', {'questions': questions})
