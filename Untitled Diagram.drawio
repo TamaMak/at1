@@ -4,8 +4,124 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="t3nNPlR4YCxWJWnQVYUU-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="360" y="80" width="120" height="60" as="geometry" />
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="t3nNPlR4YCxWJWnQVYUU-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="150" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-2" target="t3nNPlR4YCxWJWnQVYUU-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-2" value="Read Sensor" style="shape=parallelogram;html=1;strokeWidth=2;perimeter=parallelogramPerimeter;whiteSpace=wrap;rounded=1;arcSize=12;size=0.23;" vertex="1" parent="1">
+          <mxGeometry x="370" y="210" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-5" target="t3nNPlR4YCxWJWnQVYUU-38">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-15" value="True (Soil is Dry)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t3nNPlR4YCxWJWnQVYUU-14">
+          <mxGeometry x="-0.25" relative="1" as="geometry">
+            <mxPoint x="50" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-19" value="False {Soil is wet)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t3nNPlR4YCxWJWnQVYUU-18">
+          <mxGeometry x="-0.2909" y="-1" relative="1" as="geometry">
+            <mxPoint x="22" y="-9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-5" value="sensor &amp;lt; sensor_threshold" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="320" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-7" target="t3nNPlR4YCxWJWnQVYUU-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-7" value="Turn water on" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="830" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="420" y="980" />
+              <mxPoint x="560" y="980" />
+              <mxPoint x="560" y="840" />
+              <mxPoint x="420" y="840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-8" value="runtime expired?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="870" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="180" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="60" y="710" />
+              <mxPoint x="60" y="650" />
+              <mxPoint x="61" y="650" />
+              <mxPoint x="61" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-10" value="Turn water off" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-16" value="True ((It&#39;s going to rain)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-13" target="t3nNPlR4YCxWJWnQVYUU-10">
+          <mxGeometry x="-0.4" y="-10" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-13" target="t3nNPlR4YCxWJWnQVYUU-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="680" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-41" value="False (It&#39;s not going to rain)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t3nNPlR4YCxWJWnQVYUU-17">
+          <mxGeometry x="-0.225" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-13" value="forecast of rain &amp;gt; 75" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="590" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-27" value="Begin" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="370" y="90" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-34" value="true" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="416" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-36">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="550" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="660" y="550" />
+              <mxPoint x="421" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-36" value="Get forecast" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-37" value="false" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-38" target="t3nNPlR4YCxWJWnQVYUU-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3nNPlR4YCxWJWnQVYUU-38" target="t3nNPlR4YCxWJWnQVYUU-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t3nNPlR4YCxWJWnQVYUU-38" value="forecast&amp;nbsp; &amp;lt;&amp;nbsp; 24hrs" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="450" width="200" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
